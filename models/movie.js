@@ -1,12 +1,25 @@
+// To Add To movie schema
+// Photo (from API) or Icon
+// Friends Who Also Liked
+
 const mongoose = require("mongoose");
 const User = require("./user");
 
 const movieSchema = new mongoose.Schema(
   {
-    text: {
+    title: {
       type: String,
       required: true,
       maxLength: 160
+    },
+    availableOn: {
+      type: String
+    },
+    impressions: {
+      type: String
+    },
+    status: {
+      type: String
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

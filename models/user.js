@@ -19,10 +19,10 @@ const userSchema = new mongoose.Schema({
   profileImageUrl: {
     type: String
   },
-  messages: [
+  movies: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Message"
+      ref: "Movie"
     }
   ]
 });

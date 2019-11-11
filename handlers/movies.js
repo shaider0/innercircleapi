@@ -3,7 +3,10 @@ const db = require("../models");
 exports.createMovie = async function(req, res, next) {
   try {
     let movie = await db.Movie.create({
-      text: req.body.text,
+      title: req.body.title,
+      availableOn: req.body.availableOn,
+      impressions: req.body.impressions,
+      status: req.body.status,
       user: req.params.id
     });
     let foundUser = await db.User.findById(req.params.id);
