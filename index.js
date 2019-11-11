@@ -5,7 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
-const messagesRoutes = require("./routes/messages");
+const moviesRoutes = require("./routes/movies");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 const db = require("./models");
 const PORT = 8081;
@@ -15,21 +15,21 @@ app.use(bodyParser.json());
 
 app.use("/api/auth", authRoutes);
 app.use(
-  "/api/users/:id/messages",
+  "/api/users/:id/movies",
   loginRequired,
   ensureCorrectUser,
-  messagesRoutes
+  moviesRoutes
 );
 
-app.get("/api/messages", loginRequired, async function(req, res, next) {
+app.get("/api/movies", loginRequired, async function(req, res, next) {
   try {
-    let messages = await db.Message.find()
+    let movies = await db.Movie.find()
       .sort({ createdAt: "desc" })
       .populate("user", {
         username: true,
         profileImageUrl: true
       });
-    return res.status(200).json(messages);
+    return res.status(200).json(movies);
   } catch (err) {
     return next(err);
   }

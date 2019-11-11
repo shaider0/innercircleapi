@@ -1,0 +1,42 @@
+const db = require("../models");
+
+exports.createMovie = async function(req, res, next) {
+  try {
+    let movie = await db.Movie.create({
+      text: req.body.text,
+      user: req.params.id
+    });
+    let foundUser = await db.User.findById(req.params.id);
+    foundUser.movies.push(movie.id);
+    await foundUser.save();
+    let foundMovie = await db.Movie.findById(movie._id).populate("user", {
+      username: true,
+      profileImageUrl: true
+    });
+    return res.status(200).json(foundMovie);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+// GET - /api/users/:id/movies/:movie_id
+exports.getMovie = async function(req, res, next) {
+  try {
+    let movie = await db.Movie.find(req.params.movie_id);
+    return res.status(200).json(movie);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+// DELETE /api/users/:id/movies/:movie_id
+exports.deleteMovie = async function(req, res, next) {
+  try {
+    let foundMovie = await db.Movie.findById(req.params.movie_id);
+    await foundMovie.remove();
+
+    return res.status(200).json(foundMovie);
+  } catch (err) {
+    return next(err);
+  }
+};
