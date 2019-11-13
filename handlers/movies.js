@@ -25,7 +25,7 @@ exports.createMovie = async function(req, res, next) {
 // GET - /api/users/:id/movies/:movie_id
 exports.getMovie = async function(req, res, next) {
   try {
-    let movie = await db.Movie.find(req.params.movie_id);
+    let movie = await db.Movie.findById(req.params.movie_id);
     return res.status(200).json(movie);
   } catch (err) {
     return next(err);
@@ -39,6 +39,18 @@ exports.deleteMovie = async function(req, res, next) {
     await foundMovie.remove();
 
     return res.status(200).json(foundMovie);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+// UPDATE /api/users/:id/movies/:movie_id
+exports.updateMovie = async function(req, res, next) {
+  try {
+    let foundMovie = await db.Movie.findById(req.params.movie_id);
+    await foundMovie.update(req.body);
+    let updatedMovie = await db.Movie.findById(req.params.movie_id);
+    return res.status(200).json(updatedMovie);
   } catch (err) {
     return next(err);
   }

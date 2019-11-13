@@ -4,7 +4,8 @@ const router = express.Router({ mergeParams: true });
 const {
   createMovie,
   getMovie,
-  deleteMovie
+  deleteMovie,
+  updateMovie
 } = require("../handlers/movies");
 
 // prefix - /api/users/:id/movies
@@ -14,6 +15,7 @@ router.route("/").post(createMovie);
 router
   .route("/:movie_id")
   .get(getMovie)
-  .delete(deleteMovie);
+  .delete(deleteMovie)
+  .patch(updateMovie)
 
 module.exports = router;
