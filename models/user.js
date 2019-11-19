@@ -24,7 +24,14 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Movie"
     }
-  ]
+  ],
+  tvshows: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tvshow"
+    }
+  ],
+
 });
 
 userSchema.pre("save", async function(next) {
