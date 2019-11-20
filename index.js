@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
+const friendRequestsRoutes = require("./routes/friendRequests");
 const moviesRoutes = require("./routes/movies");
 const tvshowsRoutes = require("./routes/tvshows");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
@@ -20,6 +21,12 @@ app.use(
   loginRequired,
   ensureCorrectUser,
   moviesRoutes
+);
+app.use(
+  "/api/users/:id/friendRequests",
+  loginRequired,
+  ensureCorrectUser,
+  friendRequestsRoutes
 );
 
 app.use(

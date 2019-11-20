@@ -19,6 +19,16 @@ const userSchema = new mongoose.Schema({
   profileImageUrl: {
     type: String
   },
+  friends: [
+    {
+      type: String
+    }
+  ],
+  friendRequests: [
+    {
+      type: String
+    }
+  ],
   movies: [
     {
       type: mongoose.Schema.Types.ObjectId,
