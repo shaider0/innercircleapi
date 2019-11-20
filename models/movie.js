@@ -12,6 +12,10 @@ const movieSchema = new mongoose.Schema(
       required: true,
       maxLength: 160
     },
+    category: {
+      type: String,
+      default: 'movie'
+    },
     availableOn: {
       type: String
     },
