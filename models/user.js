@@ -44,6 +44,13 @@ const userSchema = new mongoose.Schema({
 
 });
 
+// deletes password property before sending back a user as json
+userSchema.methods.toJSON = function() {
+ let obj = this.toObject();
+ delete obj.password;
+ return obj;
+}
+
 userSchema.pre("save", async function(next) {
   try {
     if (!this.isModified("password")) {
