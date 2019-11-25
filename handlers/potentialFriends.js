@@ -3,7 +3,7 @@ const db = require("../models");
 exports.getPotentialFriend = async function(req, res, next) {
   try {
     let user = await db.User.findOne({
-      username: req.body.username
+      username: req.params.username
     });
     return res.status(200).json(user);
   } catch (err) {

@@ -23,7 +23,7 @@ app.use("/api/auth", authRoutes);
 
 // Searching for Friends
 app.use(
-  "/api/users/:id/potentialFriends",
+  "/api/users/:id/potentialFriends/:username",
   loginRequired,
   potentialFriendsRoutes
 );
