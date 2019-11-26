@@ -4,19 +4,20 @@ exports.createFriendRequest = async function(req, res, next) {
   try {
     let friendRequest = await db.FriendRequest.create({
       requestorId: req.params.id,
-      recipientId: req.body.recipientId,
+      recipientId: req.params.recipientId,
       status: 1,
       user: req.params.id
     });
-    let foundUser = await db.User.findById(req.params.id);
-    foundUser.friendRequests.push(friendRequest.id);
-    await foundUser.save();
 
-    let receivingUser = await db.User.findById(req.body.recipientId);
-    receivingUser.friendRequests.push(friendRequest.id);
-    await receivingUser.save();
+    let requestor = await db.User.findById(req.params.id);
+    requestor.friendRequests.push(friendRequest.id);
+    await requestor.save();
 
-    let foundFriendRequest = await db.FriendRequest.findById(friendRequest._id).populate("user", {
+    let recipient = await db.User.findById(req.params.recipientId);
+    recipient.friendRequests.push(friendRequest.id);
+    await recipient.save();
+
+    let foundFriendRequest = await db.FriendRequest.findById(friendRequest.id).populate("user", {
       username: true,
       profileImageUrl: true
     });
