@@ -10,11 +10,11 @@ exports.createFriendRequest = async function(req, res, next) {
     });
 
     let requestor = await db.User.findById(req.params.id);
-    requestor.friendRequests.push(friendRequest.id);
+    requestor.sentFriendRequests.push(friendRequest);
     await requestor.save();
 
     let recipient = await db.User.findById(req.params.recipientId);
-    recipient.friendRequests.push(friendRequest.id);
+    recipient.receivedFriendRequests.push(friendRequest);
     await recipient.save();
 
     let foundFriendRequest = await db.FriendRequest.findById(friendRequest.id).populate("user", {

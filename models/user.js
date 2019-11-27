@@ -24,9 +24,16 @@ const userSchema = new mongoose.Schema({
       type: String
     }
   ],
-  friendRequests: [
+  sentFriendRequests: [
     {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FriendRequest"
+    }
+  ],
+  receivedFriendRequests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FriendRequest"
     }
   ],
   movies: [
