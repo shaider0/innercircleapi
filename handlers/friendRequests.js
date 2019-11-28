@@ -37,3 +37,17 @@ exports.deleteFriendRequest = async function(req, res, next) {
     return next(err);s
   }
 };
+
+exports.getFriendRequests = async function(req, res, next) {
+  try { 
+    let user = await db.User.findOne({
+      _id: req.params.id
+    });
+    if (!user) {
+      return res.status(200).json({message: "user not found"})
+    }
+    return res.status(200).json(user.receivedFriendRequests);
+  } catch (err) {
+    return next(err);
+  }
+};

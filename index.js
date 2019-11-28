@@ -36,7 +36,11 @@ app.use(
 );
 
 // Viewing your friend requests
-// TO DO: Your friend requests are available in your User Profile as a property
+app.use(
+  "/api/users/:id/friendRequests",
+  loginRequired,
+  friendRequestsRoutes
+)
 
 // Movies
 app.use(
