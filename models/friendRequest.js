@@ -7,13 +7,13 @@ const User = require("./user");
 
 const friendRequestSchema = new mongoose.Schema(
   {
-    requestorId: {
-      type: String,
-      required: true
+    requestor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
     },
-    recipientId: {
-      type: String,
-      required: true
+    recipient: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
     },
     status: {
       // 1 is requested, 2 is accepted, 3 is rejected
