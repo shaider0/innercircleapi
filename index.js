@@ -15,7 +15,7 @@ const db = require("./models");
 const PORT = 8081;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 
@@ -25,20 +25,23 @@ app.use("/api/auth", authRoutes);
 app.use(
   "/api/users/:id/potentialFriends/:username",
   loginRequired,
+  ensureCorrectUser,
   potentialFriendsRoutes
 );
 
-// Submitting & Deleting Friend Requests
+// Submitting Friend Requests
 app.use(
   "/api/users/:id/friendRequests/:recipientId",
   loginRequired,
+  ensureCorrectUser,
   friendRequestsRoutes
 );
 
-// Viewing your friend requests
+// Viewing your friend requests, accepting and rejecting friend requests
 app.use(
   "/api/users/:id/friendRequests",
   loginRequired,
+  ensureCorrectUser,
   friendRequestsRoutes
 )
 

@@ -54,3 +54,14 @@ exports.getFriendRequests = async function(req, res, next) {
     return next(err);
   }
 };
+
+exports.updateFriendRequest = async function(req, res, next) {
+  try {
+    let foundFriendRequest = await db.FriendRequest.findById(req.params.friendRequest_id)
+    await foundFriendRequest.update(req.body)
+    let updatedFriendRequest = await db.FriendRequest.findById(req.params.friendRequest_id)
+    return res.status(200).json(updatedFriendRequest)
+  } catch(err) {
+    return next(err)
+  }
+}
