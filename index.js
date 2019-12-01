@@ -15,6 +15,11 @@ const db = require("./models");
 const PORT = 8081;
 
 app.use(cors());
+
+// parse application/json
+app.use(bodyParser.json())
+
+// parse application/x-www-form-urlencoded (for Postman)
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
