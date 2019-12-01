@@ -9,6 +9,7 @@ const potentialFriends = require("./routes/potentialFriends")
 const moviesRoutes = require("./routes/movies");
 const tvshowsRoutes = require("./routes/tvshows");
 const friendRequestsRoutes = require("./routes/friendRequests");
+const friendsRoutes = require("./routes/friends");
 const potentialFriendsRoutes = require("./routes/potentialFriends");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 const db = require("./models");
@@ -48,6 +49,13 @@ app.use(
   loginRequired,
   ensureCorrectUser,
   friendRequestsRoutes
+)
+
+// Viewing Friends
+app.use("/api/users/:id/friends",
+  // loginRequired,
+  // ensureCorrectUser,
+  friendsRoutes
 )
 
 // Movies
