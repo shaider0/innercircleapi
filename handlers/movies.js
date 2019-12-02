@@ -22,12 +22,12 @@ exports.createMovie = async function(req, res, next) {
   }
 };
 
-// GET - /api/users/:id/movies/
 exports.getMovies = async function(req, res, next) {
   try {
     let userId = req.params.id
     let user = await db.User.findById(userId)
     let friends = user.friends
+    friends.push(userId)
 
     let movies = await db.Movie.find({ "user": { "$in": friends } })
       .sort({ createdAt: "desc" })
@@ -41,7 +41,6 @@ exports.getMovies = async function(req, res, next) {
   }
 }
 
-// GET - /api/users/:id/movies/:movie_id
 exports.getMovie = async function(req, res, next) {
   try {
     let movie = await db.Movie.findById(req.params.movie_id);
@@ -51,7 +50,6 @@ exports.getMovie = async function(req, res, next) {
   }
 };
 
-// DELETE /api/users/:id/movies/:movie_id
 exports.deleteMovie = async function(req, res, next) {
   try {
     let foundMovie = await db.Movie.findById(req.params.movie_id);
@@ -62,8 +60,7 @@ exports.deleteMovie = async function(req, res, next) {
     return next(err);
   }
 };
-
-// UPDATE /api/users/:id/movies/:movie_id
+s
 exports.updateMovie = async function(req, res, next) {
   try {
     let foundMovie = await db.Movie.findById(req.params.movie_id);
