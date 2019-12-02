@@ -66,6 +66,12 @@ app.use(
   moviesRoutes
 );
 
+// update route below to include user id (like above)
+// then get users friends and store them to an array
+// then on the get movies call, check if the movie's user matches one of the items
+// in the array above, like so:
+// db.collection.find({ "members": { "$in": [ "some id 1", "some id 2" ] } })
+
 app.get("/api/movies", loginRequired, async function(req, res, next) {
   try {
     let movies = await db.Movie.find()

@@ -3,6 +3,7 @@ const db = require("../models");
 exports.getFriends = async function(req, res, next) {
   try {
     let user = req.params.id
+
     let friendsSent = await db.FriendRequest.find({
       requestor: user,
       status: 2

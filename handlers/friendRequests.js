@@ -1,4 +1,5 @@
 const db = require("../models");
+const mongoose = require('mongoose')
 
 exports.createFriendRequest = async function(req, res, next) {
   try {
@@ -47,7 +48,8 @@ exports.getFriendRequests = async function(req, res, next) {
       return res.status(200).json({message: "user not found"})
     }
     let friendRequests = await db.FriendRequest.find({
-      recipient: req.params.id
+      recipient: req.params.id,
+      status: 1
     }).populate('requestor')
     return res.status(200).json(friendRequests);
   } catch (err) {
@@ -57,9 +59,27 @@ exports.getFriendRequests = async function(req, res, next) {
 
 exports.updateFriendRequest = async function(req, res, next) {
   try {
+    let userId = req.params.id
     let foundFriendRequest = await db.FriendRequest.findById(req.params.friendRequest_id)
+    let friendId = foundFriendRequest.requestor
     await foundFriendRequest.update(req.body)
     let updatedFriendRequest = await db.FriendRequest.findById(req.params.friendRequest_id)
+
+  // if user is accepting friend request, add the friend to the user's friends
+    if (req.body.status === 2) {
+      await db.User.update({
+        _id: userId
+      },  {
+        $push: {friends: friendId}
+      })
+  // and add the user to the friend's friends
+      await db.User.update({
+        _id: friendId
+      },  {
+        $push: {friends: userId}
+      })
+
+    }
     return res.status(200).json(updatedFriendRequest)
   } catch(err) {
     return next(err)
