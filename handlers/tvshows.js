@@ -22,6 +22,26 @@ exports.createTvshow = async function(req, res, next) {
   }
 };
 
+// GET - /api/users/:id/tvshows/
+
+exports.getTvshows = async function(req, res, next) {
+  try {
+    let userId = req.params.id
+    let user = await db.User.findById(userId)
+    let friends = user.friends
+
+    let tvshows = await db.Tvshow.find({ "user": { "$in": friends } })
+      .sort({ createdAt: "desc" })
+      .populate("user", {
+        username: true,
+        profileImageUrl: true
+      });
+    return res.status(200).json(tvshows);
+  } catch (err) {
+    return next(err);
+  }
+}
+
 // GET - /api/users/:id/tvshows/:tvshow_id
 exports.getTvshow = async function(req, res, next) {
   try {

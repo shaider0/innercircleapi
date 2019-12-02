@@ -74,20 +74,6 @@ app.use(
   tvshowsRoutes
 );
 
-app.get("/api/tvshows", loginRequired, async function(req, res, next) {
-  try {
-    let tvshows = await db.Tvshow.find()
-      .sort({ createdAt: "desc" })
-      .populate("user", {
-        username: true,
-        profileImageUrl: true
-      });
-    return res.status(200).json(tvshows);
-  } catch (err) {
-    return next(err);
-  }
-});
-
 // Errors
 app.use(function(req, res, next) {
   let err = new Error("Not Found");

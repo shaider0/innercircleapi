@@ -5,11 +5,15 @@ const {
   createTvshow,
   getTvshow,
   deleteTvshow,
-  updateTvshow
+  updateTvshow,
+  getTvshows
 } = require("../handlers/tvshows");
 
 // prefix - /api/users/:id/tvshows
-router.route("/").post(createTvshow);
+router
+  .route("/")
+  .post(createTvshow)
+  .get(getTvshows)
 
 // prefix - /api/users/:id/tvshows/:tvshow_id
 router
