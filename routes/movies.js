@@ -5,11 +5,15 @@ const {
   createMovie,
   getMovie,
   deleteMovie,
-  updateMovie
+  updateMovie,
+  getMovies
 } = require("../handlers/movies");
 
 // prefix - /api/users/:id/movies
-router.route("/").post(createMovie);
+router
+  .route("/")
+  .post(createMovie)
+  .get(getMovies)
 
 // prefix - /api/users/:id/movies/:movie_id
 router

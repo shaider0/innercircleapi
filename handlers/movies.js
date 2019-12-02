@@ -22,6 +22,32 @@ exports.createMovie = async function(req, res, next) {
   }
 };
 
+
+// then get users friends and store them to an array
+// then on the get movies call, check if the movie's user matches one of the items
+// in the array above, like so:
+// db.collection.find({ "members": { "$in": [ "some id 1", "some id 2" ] } })
+
+// GET - /api/users/:id/movies/
+exports.getMovies = async function(req, res, next) {
+  try {
+    let userId = req.params.id
+    let user = await db.User.findById(userId)
+    let friends = user.friends
+
+    let movies = await db.Movie.find({ "user": { "$in": friends } })
+      .sort({ createdAt: "desc" })
+      .populate("user", {
+        username: true,
+        profileImageUrl: true
+      });
+    console.log('XXXXXXXXX movies is', movies)
+    return res.status(200).json(movies);
+  } catch (err) {
+    return next(err);
+  }
+}
+
 // GET - /api/users/:id/movies/:movie_id
 exports.getMovie = async function(req, res, next) {
   try {
