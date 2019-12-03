@@ -60,7 +60,7 @@ exports.deleteMovie = async function(req, res, next) {
     return next(err);
   }
 };
-s
+
 exports.updateMovie = async function(req, res, next) {
   try {
     let foundMovie = await db.Movie.findById(req.params.movie_id);
