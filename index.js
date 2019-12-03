@@ -16,6 +16,8 @@ const tvshowsRoutes = require("./routes/tvshows");
 const friendRequestsRoutes = require("./routes/friendRequests");
 const friendsRoutes = require("./routes/friends");
 const potentialFriendsRoutes = require("./routes/potentialFriends");
+const usersRoutes = require("./routes/users");
+
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 const db = require("./models");
 const PORT = 8081;
@@ -99,6 +101,13 @@ app.use("/api/users/:id/friends",
   // loginRequired,
   // ensureCorrectUser,
   friendsRoutes
+)
+
+// Updating User Profile Info
+app.use("/api/users/:id/profile",
+  loginRequired,
+  ensureCorrectUser,
+  usersRoutes
 )
 
 // Movies
