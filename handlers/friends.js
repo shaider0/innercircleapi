@@ -32,7 +32,7 @@ exports.getFriends = async function(req, res, next) {
       return {
         id: friend.recipient._id,
         username: friend.requestor.username,
-        profileImageUrl: friend.recipient.profileImageUrl
+        profileImageUrl: friend.requestor.profileImageUrl
       }
     })
 
