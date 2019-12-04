@@ -42,7 +42,7 @@ const uploadFile = (buffer, name, type) => {
   return s3.upload(params).promise();
 };
 
-app.post('/test-upload', (request, response) => {
+app.post('/image-upload', (request, response) => {
   const form = new multiparty.Form();
     form.parse(request, async (error, fields, files) => {
       if (error) throw new Error(error);
