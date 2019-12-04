@@ -37,12 +37,9 @@ exports.getFriends = async function(req, res, next) {
     })
 
     let friends = [...friendPropertiesSent, ...friendPropertiesReceived]
+    let sortedFriends = friends.sort((a, b) => (a.username > b.username) ? 1 : -1)
 
-    // if (!friends) {
-    //   return res.status(200).json({message: "friends not found"})
-    // }
-
-    return res.status(200).json(friends);
+    return res.status(200).json(sortedFriends);
   } catch (err) {
     return next(err);
   }
