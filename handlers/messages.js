@@ -26,3 +26,19 @@ exports.sendMessage = async function(req, res, next) {
     return next(err);
   }
 };
+
+exports.getMessages = async function(req, res, next) {
+  try {
+    let userId = req.params.id
+    let messages = await db.Message.find({
+      recipient: userId
+    }).populate("sender", {
+      username: true,
+      profileImageUrl: true
+    })
+    console.log('XXX', messages)
+    return res.status(200).json(messages)
+  } catch (err) {
+    return next(err)
+  }
+}
