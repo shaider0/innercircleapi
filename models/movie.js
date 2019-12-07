@@ -1,7 +1,3 @@
-// To Add To movie schema
-// Photo (from API) or Icon
-// Friends Who Also Liked
-
 const mongoose = require("mongoose");
 const User = require("./user");
 
