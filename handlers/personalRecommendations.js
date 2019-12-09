@@ -16,6 +16,7 @@ exports.sendPersonalRecommendation = async function(req, res, next) {
       sender: req.params.id,
       recipient: recipient[0]._id,
       item: req.body.item,
+      category: req.body.category,
       user: req.params.id
     });
 

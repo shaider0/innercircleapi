@@ -14,7 +14,7 @@ const tvshowSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      default: 'tvshow'
+      default: 'tv show'
     },
     availableOn: {
       type: String
