@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./user");
 
-const messageSchema = new mongoose.Schema(
+const personalRecommendationSchema = new mongoose.Schema(
   {
     sender: {
       type: mongoose.Schema.Types.ObjectId,
@@ -13,7 +13,7 @@ const messageSchema = new mongoose.Schema(
       ref: "User",
       required: true
     },
-    message: {
+    item: {
       type: String,
       required: true
     },
@@ -28,7 +28,7 @@ const messageSchema = new mongoose.Schema(
   }
 );
 
-messageSchema.pre("remove", async function(next) {
+personalRecommendationSchema.pre("remove", async function(next) {
   try {
     // find a user
     let user = await User.findById(this.user);
@@ -43,5 +43,5 @@ messageSchema.pre("remove", async function(next) {
   }
 });
 
-const Message = mongoose.model("Message", messageSchema);
-module.exports = Message;
+const PersonalRecommendation = mongoose.model("PersonalRecommendation", personalRecommendationSchema);
+module.exports = PersonalRecommendation;

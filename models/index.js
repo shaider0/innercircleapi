@@ -9,4 +9,4 @@ module.exports.User = require("./user");
 module.exports.Movie = require("./movie");
 module.exports.Tvshow = require("./tvshow");
 module.exports.FriendRequest = require("./friendRequest");
-module.exports.Message = require("./message");
+module.exports.PersonalRecommendation = require("./personalRecommendation");

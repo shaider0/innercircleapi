@@ -17,7 +17,7 @@ const friendRequestsRoutes = require("./routes/friendRequests");
 const friendsRoutes = require("./routes/friends");
 const potentialFriendsRoutes = require("./routes/potentialFriends");
 const usersRoutes = require("./routes/users");
-const messagesRoutes = require("./routes/messages")
+const personalRecommendationsRoutes = require("./routes/personalRecommendations")
 const conversationsRoutes = require("./routes/conversations")
 
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
@@ -98,11 +98,11 @@ app.use(
   friendRequestsRoutes
 )
 
-// Messages
+// Personal Recommendations
 app.use(
-  "/api/users/:id/messages",
+  "/api/users/:id/personalRecommendations",
   loginRequired,
-  messagesRoutes
+  personalRecommendationsRoutes
 )
 
 // Conversations
