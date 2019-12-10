@@ -53,7 +53,9 @@ exports.getTvshow = async function(req, res, next) {
 exports.deleteTvshow = async function(req, res, next) {
   try {
     let foundTvshow = await db.Tvshow.findById(req.params.tvshow_id);
-    await foundTvshow.remove();
+    await db.Tvshow.deleteOne({
+      _id: req.params.tvshow_id
+    })
 
     return res.status(200).json(foundTvshow);
   } catch (err) {

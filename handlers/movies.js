@@ -53,8 +53,9 @@ exports.getMovie = async function(req, res, next) {
 exports.deleteMovie = async function(req, res, next) {
   try {
     let foundMovie = await db.Movie.findById(req.params.movie_id);
-    await foundMovie.remove();
-
+    await db.Movie.deleteOne({
+      _id: req.params.movie_id
+    })
     return res.status(200).json(foundMovie);
   } catch (err) {
     return next(err);

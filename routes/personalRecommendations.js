@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 
 const {
-  sendPersonalRecommendation, getPersonalRecommendations
+  sendPersonalRecommendation, getPersonalRecommendations, deletePersonalRecommendation
 } = require("../handlers/personalRecommendations");
 
 router
@@ -10,11 +10,8 @@ router
   .post(sendPersonalRecommendation)
   .get(getPersonalRecommendations)
 
-// prefix - /api/users/:id/movies/:movie_id
-// router
-//   .route("/:movie_id")
-//   .get(getMovie)
-//   .delete(deleteMovie)
-//   .patch(updateMovie)
+router
+  .route("/:personalRecommendation_id")
+  .delete(deletePersonalRecommendation)
 
 module.exports = router;

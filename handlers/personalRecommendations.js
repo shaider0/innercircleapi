@@ -41,3 +41,14 @@ exports.getPersonalRecommendations = async function(req, res, next) {
     return next(err)
   }
 }
+
+exports.deletePersonalRecommendation = async function(req, res, next) {
+  try {
+    await db.PersonalRecommendation.deleteOne({
+      _id: req.params.personalRecommendation_id
+    })
+    return res.status(200).json('deleted');
+  } catch (err) {
+    return next(err);
+  }
+}
