@@ -7,6 +7,7 @@ mongoose.connect("mongodb://localhost/warbler", {
 
 module.exports.User = require("./user");
 module.exports.Movie = require("./movie");
+module.exports.Meal = require("./meal");
 module.exports.Tvshow = require("./tvshow");
 module.exports.FriendRequest = require("./friendRequest");
 module.exports.PersonalRecommendation = require("./personalRecommendation");

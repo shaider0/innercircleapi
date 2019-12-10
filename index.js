@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth");
 const potentialFriends = require("./routes/potentialFriends")
 const moviesRoutes = require("./routes/movies");
 const tvshowsRoutes = require("./routes/tvshows");
+const mealsRoutes = require("./routes/meals");
 const friendRequestsRoutes = require("./routes/friendRequests");
 const friendsRoutes = require("./routes/friends");
 const potentialFriendsRoutes = require("./routes/potentialFriends");
@@ -141,6 +142,15 @@ app.use(
   ensureCorrectUser,
   tvshowsRoutes
 );
+
+// Meals
+
+app.use(
+  "/api/users/:id/meals",
+  loginRequired,
+  ensureCorrectUser,
+  mealsRoutes
+)
 
 // Errors
 app.use(function(req, res, next) {

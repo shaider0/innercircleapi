@@ -22,4 +22,4 @@ router
   .delete(deleteMovie)
   .patch(updateMovie)
 
-module.exports = router;
+module.exports = router
