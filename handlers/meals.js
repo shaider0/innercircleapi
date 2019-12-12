@@ -21,7 +21,7 @@ exports.createMeal = async function(req, res, next) {
 
     console.log('found meal', foundMeal)
 
-    return res.status(200).json(meal);
+    return res.status(200).json(foundMeal);
   } catch (err) {
     return next(err);
   }
