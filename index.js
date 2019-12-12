@@ -22,6 +22,7 @@ const potentialFriendsRoutes = require("./routes/potentialFriends");
 const usersRoutes = require("./routes/users");
 const personalRecommendationsRoutes = require("./routes/personalRecommendations")
 const conversationsRoutes = require("./routes/conversations")
+const imagesRoutes = require("./routes/images")
 
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 const db = require("./models");
@@ -64,6 +65,13 @@ app.post('/image-upload', (request, response) => {
       }
     });
 });
+
+app.use(
+  "/api/users/:id/images",
+  loginRequired,
+  ensureCorrectUser,
+  imagesRoutes
+)
 
 app.use(cors());
 
