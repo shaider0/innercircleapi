@@ -1,40 +1,41 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const errorHandler = require("./handlers/error");
+const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
+const db = require("./models");
+const PORT = 8081;
 
+
+// Routes
+const authRoutes = require("./routes/auth");
+const usersRoutes = require("./routes/users");
+const potentialFriendsRoutes = require("./routes/potentialFriends");
+const friendRequestsRoutes = require("./routes/friendRequests");
+const friendsRoutes = require("./routes/friends");
+const imagesRoutes = require("./routes/images")
+
+const moviesRoutes = require("./routes/movies");
+const tvshowsRoutes = require("./routes/tvshows");
+const mealsRoutes = require("./routes/meals")
+
+const personalRecommendationsRoutes = require("./routes/personalRecommendations")
+const conversationsRoutes = require("./routes/conversations")
+
+
+// AWS
 const AWS = require('aws-sdk')
 const fs = require('fs')
 const fileType = require('file-type')
 const bluebird = require('bluebird')
 const multiparty = require('multiparty')
-
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const errorHandler = require("./handlers/error");
-const authRoutes = require("./routes/auth");
-const potentialFriends = require("./routes/potentialFriends")
-const moviesRoutes = require("./routes/movies");
-const tvshowsRoutes = require("./routes/tvshows");
-const mealsRoutes = require("./routes/meals");
-const friendRequestsRoutes = require("./routes/friendRequests");
-const friendsRoutes = require("./routes/friends");
-const potentialFriendsRoutes = require("./routes/potentialFriends");
-const usersRoutes = require("./routes/users");
-const personalRecommendationsRoutes = require("./routes/personalRecommendations")
-const conversationsRoutes = require("./routes/conversations")
-const imagesRoutes = require("./routes/images")
-
-const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
-const db = require("./models");
-const PORT = 8081;
-
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 })
-
 AWS.config.setPromisesDependency(bluebird)
-
 const s3 = new AWS.S3()
 
 const uploadFile = (buffer, name, type) => {
