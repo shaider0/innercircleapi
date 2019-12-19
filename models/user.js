@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -52,8 +51,6 @@ const userSchema = new mongoose.Schema({
   ],
 
 });
-
-userSchema.plugin(uniqueValidator, { message: `The email address or username is already taken. Please try again.` })
 
 // deletes password property before sending back a user as json
 userSchema.methods.toJSON = function() {
