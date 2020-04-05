@@ -59,7 +59,11 @@ exports.updatePost = async function(req, res, next) {
     let updates = req.body
     updates.post = req.body.post
     await foundPost.update(updates);
-    let updatedPost = await db.Post.findById(req.params.post_id);
+    let updatedPost = await db.Post.findById(req.params.post_id)
+      .populate("user", {
+        username: true,
+        profileImageUrl: true
+      });
     return res.status(200).json(updatedPost);
   } catch (err) {
     return next(err);
