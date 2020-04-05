@@ -24,7 +24,7 @@ const postsRoutes = require("./routes/posts")
 
 const welcomeMessageRoutes = require("./routes/welcomeMessage")
 
-const personalRecommendationsRoutes = require("./routes/personalRecommendations")
+const messagesRoutes = require("./routes/messages")
 
 // images
 app.use(
@@ -81,11 +81,11 @@ app.use(
   friendRequestsSentRoutes
 )
 
-// Personal Recommendations
+// Messages
 app.use(
-  "/api/users/:id/personalRecommendations",
+  "/api/users/:id/messages",
   loginRequired,
-  personalRecommendationsRoutes
+  messagesRoutes
 )
 
 // Viewing Friends
