@@ -13,20 +13,18 @@ const movieSchema = new mongoose.Schema(
       default: 'movie'
     },
     availableOn: {
-      type: String,
-      uppercase: true
+      type: String
     },
     impressions: {
-      type: String,
-      uppercase: true
+      type: String
     },
     status: {
       type: String
     },
     likedBy: [
       {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
       }
     ],
     user: {
@@ -39,7 +37,7 @@ const movieSchema = new mongoose.Schema(
   }
 );
 
-movieSchema.pre("remove", async function(next) {
+movieSchema.pre("remove", async function (next) {
   try {
     let user = await User.findById(this.user);
     user.movies.remove(this.id);
